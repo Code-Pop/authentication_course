@@ -15,15 +15,9 @@ export default {
     };
   },
   created() {
-    const userString = localStorage.getItem("user");
-    if (userString) {
-      const token = JSON.parse(userString).token;
-      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-
-      axios.get("//localhost:3000/protected").then(({ data }) => {
-        this.message = data.message;
-      });
-    }
+    axios.get("//localhost:3000/protected").then(({ data }) => {
+      this.message = data.message;
+    });
   }
 };
 </script>

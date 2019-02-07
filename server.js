@@ -30,6 +30,7 @@ app.get("/protected", verifyToken, (req, res) => {
 app.post("/login", (req, res) => {
   // Are we fine with just faking out a user?
   const user = {
+    name: "Nancy Usery",
     email: "nancy@gmail.com",
     password: "pass123"
   };
@@ -41,7 +42,8 @@ app.post("/login", (req, res) => {
     const token = jwt.sign({ user }, "the_secret_key");
     res.json({
       token,
-      email: user.email
+      email: user.email,
+      name: user.name
     });
   } else {
     res.sendStatus(401);

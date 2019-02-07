@@ -26,10 +26,7 @@ export default {
           password: this.password
         })
         .then(({ data }) => {
-          localStorage.setItem("user", JSON.stringify(data));
-          axios.defaults.headers.common["Authorization"] = `Bearer ${
-            data.token
-          }`;
+          this.$store.commit("setUserData", data);
           this.$router.push("/dashboard");
         });
     }

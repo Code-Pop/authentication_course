@@ -2,12 +2,32 @@
   <div id="app">
     <div id="nav">
       <router-link to="/">Home</router-link> |
-      <router-link to="/login">Login</router-link> |
-      <router-link to="/dashboard">Dashboard</router-link>
+      <router-link to="/dashboard">Dashboard</router-link> |
+
+      <template v-if="user">
+        <span>Hello {{ user.name }}</span>
+        <button type="button" @click="logout">Log out</button>
+      </template>
+      <router-link v-else to="/login">Login</router-link>
     </div>
     <router-view />
   </div>
 </template>
+
+<script>
+export default {
+  computed: {
+    user() {
+      return this.$store.state.user;
+    }
+  },
+  methods: {
+    logout() {
+      this.$store.commit("logout");
+    }
+  }
+};
+</script>
 
 <style>
 #app {
