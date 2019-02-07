@@ -1,7 +1,12 @@
 var express = require("express");
 var jwt = require("jsonwebtoken");
+var cors = require("cors");
+var bodyParser = require("body-parser");
 
 const app = express();
+
+app.use(cors());
+app.use(bodyParser.json());
 
 app.get("/", (req, res) => {
   res.json({
@@ -11,26 +16,36 @@ app.get("/", (req, res) => {
 
 app.get("/protected", verifyToken, (req, res) => {
   //Do we want to do this async or not?
-  jwt.verify(req.token, "the_secret_key"),
-    (err, authData) => {
-      if (err) {
-        res.sendStatus(403);
-      } else {
-        res.json({
-          message: "You've successly accessed a protected route!",
-          authData
-        });
-      }
-    };
+  jwt.verify(req.token, "the_secret_key", err => {
+    if (err) {
+      res.sendStatus(403);
+    } else {
+      res.json({
+        message: "You've successly accessed a protected route!"
+      });
+    }
+  });
 });
 
 app.post("/login", (req, res) => {
   // Are we fine with just faking out a user?
-  const user = { name: "Nancy Usery", email: "nancy@gmail.com", id: 4321 };
-  const token = jwt.sign({ user }, "the_secret_key");
-  res.json({
-    token
-  });
+  const user = {
+    email: "nancy@gmail.com",
+    password: "pass123"
+  };
+  if (
+    req.body &&
+    req.body.email === user.email &&
+    req.body.password === user.password
+  ) {
+    const token = jwt.sign({ user }, "the_secret_key");
+    res.json({
+      token,
+      email: user.email
+    });
+  } else {
+    res.sendStatus(401);
+  }
 });
 
 function verifyToken(req, res, next) {
@@ -40,6 +55,7 @@ function verifyToken(req, res, next) {
   if (typeof bearerHeader !== "undefined") {
     const bearer = bearerHeader.split(" ");
     const bearerToken = bearer[1];
+
     req.token = bearerToken;
     next();
   } else {
