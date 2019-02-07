@@ -19,10 +19,15 @@ export default new Vuex.Store({
     logout() {
       localStorage.removeItem("user");
       location.reload();
-      // or
-      // axios.defaults.headers.common["Authorization"] = "";
-      // state.user = null;
     }
   },
-  actions: {}
+  actions: {
+    login({ commit }, credentials) {
+      return axios
+        .post("//localhost:3000/login", credentials)
+        .then(({ data }) => {
+          commit("setUserData", data);
+        });
+    }
+  }
 });

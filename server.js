@@ -18,7 +18,7 @@ app.get("/protected", verifyToken, (req, res) => {
   //Do we want to do this async or not?
   jwt.verify(req.token, "the_secret_key", err => {
     if (err) {
-      res.sendStatus(403);
+      res.sendStatus(401);
     } else {
       res.json({
         message: "You've successly accessed a protected route!"
@@ -61,7 +61,7 @@ function verifyToken(req, res, next) {
     req.token = bearerToken;
     next();
   } else {
-    res.sendStatus(403);
+    res.sendStatus(401);
   }
 }
 

@@ -20,13 +20,12 @@ export default {
   },
   methods: {
     login() {
-      axios
-        .post("//localhost:3000/login", {
+      this.$store
+        .dispatch("login", {
           email: this.email,
           password: this.password
         })
-        .then(({ data }) => {
-          this.$store.commit("setUserData", data);
+        .then(() => {
           this.$router.push("/dashboard");
         });
     }

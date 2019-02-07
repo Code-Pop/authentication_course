@@ -11,7 +11,7 @@ import axios from "axios";
 export default {
   data() {
     return {
-      message: "NO MESSAGE"
+      message: "Loading..."
     };
   },
   created() {
