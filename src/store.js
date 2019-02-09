@@ -1,8 +1,8 @@
-import Vue from "vue";
-import Vuex from "vuex";
-import axios from "axios";
+import Vue from 'vue'
+import Vuex from 'vuex'
+import axios from 'axios'
 
-Vue.use(Vuex);
+Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
@@ -10,24 +10,31 @@ export default new Vuex.Store({
   },
   mutations: {
     setUserData(state, userData) {
-      localStorage.setItem("user", JSON.stringify(userData));
-      axios.defaults.headers.common["Authorization"] = `Bearer ${
+      localStorage.setItem('user', JSON.stringify(userData))
+      axios.defaults.headers.common['Authorization'] = `Bearer ${
         userData.token
-      }`;
-      state.user = userData;
+      }`
+      state.user = userData
     },
     logout() {
-      localStorage.removeItem("user");
-      location.reload();
+      localStorage.removeItem('user')
+      location.reload()
     }
   },
   actions: {
+    register({ commit }, credentials) {
+      return axios
+        .post('//localhost:3000/register', credentials)
+        .then(({ data }) => {
+          commit('setUserData', data)
+        })
+    },
     login({ commit }, credentials) {
       return axios
-        .post("//localhost:3000/login", credentials)
+        .post('//localhost:3000/login', credentials)
         .then(({ data }) => {
-          commit("setUserData", data);
-        });
+          commit('setUserData', data)
+        })
     }
   }
-});
+})

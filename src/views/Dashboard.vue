@@ -1,23 +1,23 @@
 <template>
   <div class="dashboard">
     <h1>Dashboard</h1>
-    {{ message }}
+    {{ events }}
   </div>
 </template>
 
 <script>
-import axios from "axios";
+import axios from 'axios'
 
 export default {
   data() {
     return {
-      message: "Loading..."
-    };
+      events: 'Loading events...'
+    }
   },
   created() {
-    axios.get("//localhost:3000/protected").then(({ data }) => {
-      this.message = data.message;
-    });
+    axios.get('//localhost:3000/dashboard').then(({ data }) => {
+      this.events = data.events
+    })
   }
-};
+}
 </script>
