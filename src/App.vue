@@ -6,12 +6,12 @@
         >Dashboard</router-link
       >
       <template v-if="!user">
-        <router-link :to="{ name: 'authenticate' }">
-          <button type="button">Login</button>
+        <router-link :to="{ name: 'authenticate' }" class="navButton">
+          <span>Login</span>
         </router-link>
       </template>
 
-      <template v-if="user">
+      <template v-else>
         <span>Hello, {{ user.name }}.</span>
         <button type="button" @click="logout">Log out</button>
       </template>
@@ -66,6 +66,10 @@ export default {
 #nav span {
   margin: auto 1em auto 0em;
 }
+#nav a span {
+  vertical-align: middle;
+  margin: auto !important;
+}
 a:visited {
   color: #2c3e50;
 }
@@ -104,6 +108,14 @@ input {
   color: #2c3e50;
 }
 .navButton {
-  margin-left: auto;
+  background: white;
+  color: #2c3e50 !important;
+  text-decoration: none;
+  font-size: 1em;
+  font-weight: 500 !important;
+  width: 5em;
+  height: 1.8em;
+  border-radius: 5%;
+  margin: 0.5em 0.5em 0.5em auto !important;
 }
 </style>
