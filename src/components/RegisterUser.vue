@@ -1,10 +1,15 @@
 <template>
-  <div class="about">
+  <div>
     <form @submit.prevent="register">
+      <label for="name">Name:</label>
       <input v-model="name" type="text" name="name" value />
+      <label for="email">Email:</label>
       <input v-model="email" type="email" name="email" value />
+      <p v-if="$store.state.status === 409">Email already exists.</p>
+
+      <label for="password">Password:</label>
       <input v-model="password" type="password" name value />
-      <button type="submit" name="button">Login</button>
+      <button type="submit" name="button">Register</button>
     </form>
   </div>
 </template>
@@ -27,7 +32,7 @@ export default {
           password: this.password
         })
         .then(() => {
-          this.$router.push('/dashboard')
+          this.$router.push({ name: 'dashboard' })
         })
     }
   }

@@ -1,6 +1,11 @@
 <template>
   <div class="home">
-    Welcome to the App. Please
-    <router-link to="/authenticate">Login or Register</router-link>
+    <h1>Welcome to the App!</h1>
+    <template v-if="!this.$store.state.user"
+      >To use the app, you'll need to
+      <router-link :to="{ name: 'authenticate' }"
+        >Login or Register</router-link
+      >
+    </template>
   </div>
 </template>

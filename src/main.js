@@ -23,8 +23,9 @@ new Vue({
         console.log(error.response)
         if (error.response.status === 401) {
           // Do something with response error
-          this.$router.push('/authenticate')
-          this.$store.commit('logout')
+          this.$router.push('/')
+          //This messes with displaying login error
+          this.$store.dispatch('logout')
         }
         return Promise.reject(error)
       }

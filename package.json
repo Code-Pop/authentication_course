@@ -5,7 +5,8 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "start": "nodemon server.js & vue-cli-service serve"
   },
   "dependencies": {
     "axios": "^0.18.0",
@@ -13,6 +14,7 @@
     "cors": "^2.8.5",
     "express": "^4.16.4",
     "jsonwebtoken": "^8.4.0",
+    "nodemon": "^1.18.10",
     "sqlite3": "^4.0.6",
     "vue": "^2.5.22",
     "vue-router": "^3.0.1",

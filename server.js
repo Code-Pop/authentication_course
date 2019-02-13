@@ -1,70 +1,99 @@
-var express = require("express");
-var jwt = require("jsonwebtoken");
-var cors = require("cors");
-var bodyParser = require("body-parser");
+var express = require('express')
+var jwt = require('jsonwebtoken')
+var cors = require('cors')
+var bodyParser = require('body-parser')
+var fs = require('fs')
+var events = require('./db/events.json')
 
-const app = express();
+const app = express()
 
-app.use(cors());
-app.use(bodyParser.json());
+app.use(cors())
+app.use(bodyParser.json())
 
-app.get("/", (req, res) => {
+app.get('/', (req, res) => {
   res.json({
-    message: "Welcome to the API."
-  });
-});
+    message: 'Welcome to the API.'
+  })
+})
 
-app.get("/protected", verifyToken, (req, res) => {
-  //Do we want to do this async or not?
-  jwt.verify(req.token, "the_secret_key", err => {
+app.get('/dashboard', verifyToken, (req, res) => {
+  jwt.verify(req.token, 'the_secret_key', err => {
     if (err) {
-      res.sendStatus(401);
+      res.sendStatus(401)
     } else {
       res.json({
-        message: "You've successly accessed a protected route!"
-      });
+        events: events
+      })
     }
-  });
-});
+  })
+})
 
-app.post("/login", (req, res) => {
-  // Are we fine with just faking out a user?
-  const user = {
-    name: "Nancy Usery",
-    email: "nancy@gmail.com",
-    password: "pass123"
-  };
+app.post('/register', (req, res) => {
+  if (req.body) {
+    const user = {
+      name: req.body.name,
+      email: req.body.email,
+      password: req.body.password
+    }
+
+    var data = JSON.stringify(user, null, 2)
+    var dbUserEmail = require('./db/user.json').email
+
+    if (dbUserEmail === req.body.email) {
+      res.sendStatus(409)
+    } else {
+      fs.writeFile('./db/user.json', data, err => {
+        if (err) {
+          console.log(err + data)
+        } else {
+          const token = jwt.sign({ user }, 'the_secret_key')
+          res.json({
+            token,
+            email: user.email,
+            name: user.name
+          })
+          console.log(`Added ${data} to user.json`)
+        }
+      })
+    }
+  } else {
+    res.sendStatus(401)
+  }
+})
+
+app.post('/login', (req, res) => {
+  var userDB = fs.readFileSync('./db/user.json')
+  var userInfo = JSON.parse(userDB)
   if (
     req.body &&
-    req.body.email === user.email &&
-    req.body.password === user.password
+    req.body.email === userInfo.email &&
+    req.body.password === userInfo.password
   ) {
-    const token = jwt.sign({ user }, "the_secret_key");
+    const token = jwt.sign({ userInfo }, 'the_secret_key')
     res.json({
       token,
-      email: user.email,
-      name: user.name
-    });
+      email: userInfo.email,
+      name: userInfo.name
+    })
   } else {
-    res.sendStatus(401);
+    res.sendStatus(401)
   }
-});
+})
 
+//MIDDLEWARE
 function verifyToken(req, res, next) {
-  //Get auth header value
-  const bearerHeader = req.headers["authorization"];
+  const bearerHeader = req.headers['authorization']
 
-  if (typeof bearerHeader !== "undefined") {
-    const bearer = bearerHeader.split(" ");
-    const bearerToken = bearer[1];
-
-    req.token = bearerToken;
-    next();
+  if (typeof bearerHeader !== 'undefined') {
+    const bearer = bearerHeader.split(' ')
+    const bearerToken = bearer[1]
+    req.token = bearerToken
+    next()
   } else {
-    res.sendStatus(401);
+    res.sendStatus(401)
   }
 }
 
 app.listen(3000, () => {
-  console.log("Server started on port 3000");
-});
+  console.log('Server started on port 3000')
+})

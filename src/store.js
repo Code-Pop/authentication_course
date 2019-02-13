@@ -6,7 +6,8 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    user: null
+    user: null,
+    status: null
   },
   mutations: {
     SET_USER_DATA(state, userData) {
@@ -16,7 +17,10 @@ export default new Vuex.Store({
       }`
       state.user = userData
     },
-    logout() {
+    SET_STATUS(state, status) {
+      state.status = status
+    },
+    LOGOUT() {
       localStorage.removeItem('user')
       location.reload()
     }
@@ -28,6 +32,9 @@ export default new Vuex.Store({
         .then(({ data }) => {
           commit('SET_USER_DATA', data)
         })
+        .catch(error => {
+          commit('SET_STATUS', error.response.status)
+        })
     },
     login({ commit }, credentials) {
       return axios
@@ -35,6 +42,12 @@ export default new Vuex.Store({
         .then(({ data }) => {
           commit('SET_USER_DATA', data)
         })
+        .catch(error => {
+          commit('SET_STATUS', error.response.status)
+        })
+    },
+    logout({ commit }) {
+      commit('LOGOUT')
     }
   }
 })
