@@ -5,7 +5,7 @@
       <input v-model="email" type="email" name="email" value />
       <label for="password">Password:</label>
       <input v-model="password" type="password" name value />
-      <p v-if="$store.state.status === 401">Invalid login info.</p>
+      <p v-if="status === 400">Invalid login info.</p>
       <button type="submit" name="button">Login</button>
     </form>
   </div>
@@ -16,7 +16,8 @@ export default {
   data() {
     return {
       email: '',
-      password: ''
+      password: '',
+      status: null
     }
   },
   methods: {
@@ -28,6 +29,9 @@ export default {
         })
         .then(() => {
           this.$router.push({ name: 'dashboard' })
+        })
+        .catch(err => {
+          this.status = err.response.status
         })
     }
   }

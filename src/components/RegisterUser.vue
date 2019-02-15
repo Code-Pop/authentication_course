@@ -5,10 +5,11 @@
       <input v-model="name" type="text" name="name" value />
       <label for="email">Email:</label>
       <input v-model="email" type="email" name="email" value />
-      <p v-if="$store.state.status === 409">Email already exists.</p>
 
       <label for="password">Password:</label>
       <input v-model="password" type="password" name value />
+      <p v-if="status === 400">Please enter different info.</p>
+
       <button type="submit" name="button">Register</button>
     </form>
   </div>
@@ -20,7 +21,8 @@ export default {
     return {
       name: '',
       email: '',
-      password: ''
+      password: '',
+      status: null
     }
   },
   methods: {
@@ -33,6 +35,9 @@ export default {
         })
         .then(() => {
           this.$router.push({ name: 'dashboard' })
+        })
+        .catch(err => {
+          this.status = err.response.status
         })
     }
   }

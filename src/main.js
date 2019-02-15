@@ -16,14 +16,13 @@ new Vue({
       const userData = JSON.parse(userString)
       this.$store.commit('SET_USER_DATA', userData)
     }
-
+    //
     axios.interceptors.response.use(
       response => response,
       error => {
         console.log(error.response)
         if (error.response.status === 401) {
           this.$router.push('/')
-          //This messes with displaying login error
           this.$store.dispatch('logout')
         }
         return Promise.reject(error)

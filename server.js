@@ -40,7 +40,7 @@ app.post('/register', (req, res) => {
     var dbUserEmail = require('./db/user.json').email
 
     if (dbUserEmail === req.body.email) {
-      res.sendStatus(409)
+      res.sendStatus(400)
     } else {
       fs.writeFile('./db/user.json', data, err => {
         if (err) {
@@ -57,7 +57,7 @@ app.post('/register', (req, res) => {
       })
     }
   } else {
-    res.sendStatus(401)
+    res.sendStatus(400)
   }
 })
 
@@ -76,7 +76,7 @@ app.post('/login', (req, res) => {
       name: userInfo.name
     })
   } else {
-    res.sendStatus(401)
+    res.sendStatus(400)
   }
 })
 

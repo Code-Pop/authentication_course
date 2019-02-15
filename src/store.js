@@ -32,18 +32,12 @@ export default new Vuex.Store({
         .then(({ data }) => {
           commit('SET_USER_DATA', data)
         })
-        .catch(error => {
-          commit('SET_STATUS', error.response.status)
-        })
     },
     login({ commit }, credentials) {
       return axios
         .post('//localhost:3000/login', credentials)
         .then(({ data }) => {
           commit('SET_USER_DATA', data)
-        })
-        .catch(error => {
-          commit('SET_STATUS', error.response.status)
         })
     },
     logout({ commit }) {
