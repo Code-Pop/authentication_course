@@ -9,7 +9,10 @@ npm install
 ```
 npm run serve
 ```
-
+### Same as above and start backend server
+```
+npm run start
+```
 ### Compiles and minifies for production
 ```
 npm run build
