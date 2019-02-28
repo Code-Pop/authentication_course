@@ -7,41 +7,48 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     user: null,
-    status: null
+    status: null,
+    newUser: true
   },
   mutations: {
-    SET_USER_DATA(state, userData) {
+    SET_USER_DATA (state, userData) {
       localStorage.setItem('user', JSON.stringify(userData))
       axios.defaults.headers.common['Authorization'] = `Bearer ${
         userData.token
       }`
       state.user = userData
     },
-    SET_STATUS(state, status) {
+    SET_STATUS (state, status) {
       state.status = status
     },
-    LOGOUT() {
+    LOGOUT () {
       localStorage.removeItem('user')
       location.reload()
+    },
+    NEWUSER (state, isNew) {
+      state.newUser = isNew
     }
   },
   actions: {
-    register({ commit }, credentials) {
+    register ({ commit }, credentials) {
       return axios
         .post('//localhost:3000/register', credentials)
         .then(({ data }) => {
           commit('SET_USER_DATA', data)
         })
     },
-    login({ commit }, credentials) {
+    login ({ commit }, credentials) {
       return axios
         .post('//localhost:3000/login', credentials)
         .then(({ data }) => {
           commit('SET_USER_DATA', data)
         })
     },
-    logout({ commit }) {
+    logout ({ commit }) {
       commit('LOGOUT')
+    },
+    newUser ({ commit }, isNew) {
+      commit('NEWUSER', isNew)
     }
   }
 })
