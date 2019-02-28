@@ -1,9 +1,9 @@
-var express = require('express')
-var jwt = require('jsonwebtoken')
-var cors = require('cors')
-var bodyParser = require('body-parser')
-var fs = require('fs')
-var events = require('./db/events.json')
+const express = require('express')
+const jwt = require('jsonwebtoken')
+const cors = require('cors')
+const bodyParser = require('body-parser')
+const fs = require('fs')
+const events = require('./db/events.json')
 
 const app = express()
 
@@ -36,7 +36,7 @@ app.post('/register', (req, res) => {
       password: req.body.password
     }
 
-    var data = JSON.stringify(user, null, 2)
+    const data = JSON.stringify(user, null, 2)
     var dbUserEmail = require('./db/user.json').email
 
     if (dbUserEmail === req.body.email) {
@@ -62,8 +62,8 @@ app.post('/register', (req, res) => {
 })
 
 app.post('/login', (req, res) => {
-  var userDB = fs.readFileSync('./db/user.json')
-  var userInfo = JSON.parse(userDB)
+  const userDB = fs.readFileSync('./db/user.json')
+  const userInfo = JSON.parse(userDB)
   if (
     req.body &&
     req.body.email === userInfo.email &&
