@@ -7,7 +7,6 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     user: null,
-    status: null,
     isNewUser: true
   },
   mutations: {
@@ -18,14 +17,11 @@ export default new Vuex.Store({
       }`
       state.user = userData
     },
-    SET_STATUS (state, status) {
-      state.status = status
-    },
     LOGOUT () {
       localStorage.removeItem('user')
       location.reload()
     },
-    ISNEWUSER (state, isNewUser) {
+    IS_NEW_USER (state, isNewUser) {
       state.isNewUser = isNewUser
     }
   },
@@ -48,7 +44,7 @@ export default new Vuex.Store({
       commit('LOGOUT')
     },
     isNewUser ({ commit }, isNewUser) {
-      commit('ISNEWUSER', isNewUser)
+      commit('IS_NEW_USER', isNewUser)
     }
   }
 })

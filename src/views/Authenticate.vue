@@ -1,20 +1,16 @@
 <template>
   <div>
-    <component :is="loginOrRegister" />
+    <component :is="loginOrRegister"/>
     <a
       v-show="isNewUser"
       class="auth-link"
       @click="toggleComponent"
-    >
-      Don't have an account? Create one.
-    </a>
+    >Don't have an account? Create one.</a>
     <a
       v-show="!isNewUser"
       class="auth-link"
       @click="toggleComponent"
-    >
-      Already have an account? Login.
-    </a>
+    >Already have an account? Login.</a>
   </div>
 </template>
 
@@ -25,11 +21,17 @@ import LoginUser from '../components/LoginUser'
 export default {
   components: { RegisterUser, LoginUser },
   computed: {
-    isNewUser () { return this.$store.state.isNewUser },
-    loginOrRegister () { return this.isNewUser ? 'LoginUser' : 'RegisterUser' }
+    isNewUser() {
+      return this.$store.state.isNewUser
+    },
+    loginOrRegister() {
+      return this.isNewUser ? 'LoginUser' : 'RegisterUser'
+    }
   },
   methods: {
-    toggleComponent () { this.$store.dispatch('isNewUser', !this.isNewUser) }
+    toggleComponent() {
+      this.$store.dispatch('isNewUser', !this.isNewUser)
+    }
   }
 }
 </script>

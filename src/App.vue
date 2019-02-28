@@ -9,15 +9,13 @@
 import AppNav from './components/AppNav'
 
 export default {
-  name: 'App',
   components: { AppNav }
 }
 </script>
 
 <style lang="scss">
-@import "./assets/styles/global.scss";
-
-.page{
+@import './assets/styles/global.scss';
+.page {
   display: flex;
   justify-content: center;
   flex-direction: column;
