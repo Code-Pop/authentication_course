@@ -44,12 +44,8 @@ export default {
           email: this.email,
           password: this.password
         })
-        .then(() => {
-          this.$router.push({ name: 'dashboard' })
-        })
-        .catch(err => {
-          this.status = err.response.status
-        })
+        .then(() => { this.$router.push({ name: 'dashboard' }) })
+        .catch(err => { this.status = err.response.status })
     }
   }
 }

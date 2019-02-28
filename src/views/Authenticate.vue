@@ -1,15 +1,15 @@
 <template>
   <div>
-    <component :is="selectedComponent" />
+    <component :is="loginOrRegister" />
     <a
-      v-show="newUser"
+      v-show="isNewUser"
       class="auth-link"
       @click="toggleComponent"
     >
       Don't have an account? Create one.
     </a>
     <a
-      v-show="!newUser"
+      v-show="!isNewUser"
       class="auth-link"
       @click="toggleComponent"
     >
@@ -25,26 +25,20 @@ import LoginUser from '../components/LoginUser'
 export default {
   components: { RegisterUser, LoginUser },
   computed: {
-    newUser () {
-      return this.$store.state.newUser
-    },
-    selectedComponent () {
-      return this.newUser ? 'LoginUser' : 'RegisterUser'
-    }
+    isNewUser () { return this.$store.state.isNewUser },
+    loginOrRegister () { return this.isNewUser ? 'LoginUser' : 'RegisterUser' }
   },
   methods: {
-    toggleComponent () {
-      this.$store.dispatch('newUser', !this.newUser)
-    }
+    toggleComponent () { this.$store.dispatch('isNewUser', !this.isNewUser) }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-  .auth-link {
-    font-size: 0.8em;
-    text-decoration: underline;
-    color: #2c3e50;
-    cursor: pointer;
-  }
+.auth-link {
+  font-size: 0.8em;
+  text-decoration: underline;
+  color: #2c3e50;
+  cursor: pointer;
+}
 </style>

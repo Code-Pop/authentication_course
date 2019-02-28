@@ -8,7 +8,7 @@ export default new Vuex.Store({
   state: {
     user: null,
     status: null,
-    newUser: true
+    isNewUser: true
   },
   mutations: {
     SET_USER_DATA (state, userData) {
@@ -25,8 +25,8 @@ export default new Vuex.Store({
       localStorage.removeItem('user')
       location.reload()
     },
-    NEWUSER (state, isNew) {
-      state.newUser = isNew
+    ISNEWUSER (state, isNewUser) {
+      state.isNewUser = isNewUser
     }
   },
   actions: {
@@ -47,8 +47,8 @@ export default new Vuex.Store({
     logout ({ commit }) {
       commit('LOGOUT')
     },
-    newUser ({ commit }, isNew) {
-      commit('NEWUSER', isNew)
+    isNewUser ({ commit }, isNewUser) {
+      commit('ISNEWUSER', isNewUser)
     }
   }
 })

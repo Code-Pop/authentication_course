@@ -13,12 +13,10 @@ import EventCard from '../components/EventCard'
 
 export default {
   components: { EventCard },
-  data() {
-    return {
-      events: 'Loading events...'
-    }
+  data () {
+    return { events: 'Loading events...' }
   },
-  created() {
+  created () {
     axios.get('//localhost:3000/dashboard').then(({ data }) => {
       this.events = data.events.events
     })

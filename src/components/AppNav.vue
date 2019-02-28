@@ -28,14 +28,10 @@
 export default {
   name: 'AppNav',
   computed: {
-    user () {
-      return this.$store.state.user
-    }
+    user () { return this.$store.state.user }
   },
   methods: {
-    logout () {
-      this.$store.dispatch('logout')
-    }
+    logout () { this.$store.dispatch('logout') }
   }
 }
 </script>
