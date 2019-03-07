@@ -34,6 +34,7 @@ app.post('/register', (req, res) => {
       name: req.body.name,
       email: req.body.email,
       password: req.body.password
+      // In a production app, you'll want to encrypt the password
     }
 
     const data = JSON.stringify(user, null, 2)
@@ -47,12 +48,12 @@ app.post('/register', (req, res) => {
           console.log(err + data)
         } else {
           const token = jwt.sign({ user }, 'the_secret_key')
+          // In a production app, you'll want the secret key to be an environment variable
           res.json({
             token,
             email: user.email,
             name: user.name
           })
-          console.log(`Added ${data} to user.json`)
         }
       })
     }
@@ -70,6 +71,7 @@ app.post('/login', (req, res) => {
     req.body.password === userInfo.password
   ) {
     const token = jwt.sign({ userInfo }, 'the_secret_key')
+    // In a production app, you'll want the secret key to be an environment variable
     res.json({
       token,
       email: userInfo.email,
@@ -80,8 +82,8 @@ app.post('/login', (req, res) => {
   }
 })
 
-//MIDDLEWARE
-function verifyToken(req, res, next) {
+// MIDDLEWARE
+function verifyToken (req, res, next) {
   const bearerHeader = req.headers['authorization']
 
   if (typeof bearerHeader !== 'undefined') {

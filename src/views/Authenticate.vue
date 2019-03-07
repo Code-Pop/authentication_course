@@ -1,6 +1,6 @@
 <template>
   <div>
-    <component :is="loginOrRegister"/>
+    <component :is="loginOrRegister" />
     <a
       v-show="isNewUser"
       class="auth-link"
@@ -21,15 +21,15 @@ import LoginUser from '../components/LoginUser'
 export default {
   components: { RegisterUser, LoginUser },
   computed: {
-    isNewUser() {
+    isNewUser () {
       return this.$store.state.isNewUser
     },
-    loginOrRegister() {
+    loginOrRegister () {
       return this.isNewUser ? 'LoginUser' : 'RegisterUser'
     }
   },
   methods: {
-    toggleComponent() {
+    toggleComponent () {
       this.$store.dispatch('isNewUser', !this.isNewUser)
     }
   }
