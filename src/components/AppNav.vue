@@ -3,40 +3,14 @@
     <router-link to="/">
 Home
 </router-link>
-
-    <template v-if="user">
-      <router-link to="dashboard">
+    <router-link to="/dashboard">
 Dashboard
 </router-link>
-
-      <span class="nav-welcome">Hello, {{ user.name }}.</span>
-
-      <button type="button" class="logoutButton" @click="logout">
-Log out
-</button>
-    </template>
-
-    <template v-else>
-      <router-link to="authenticate" class="button">
-Login
-</router-link>
-    </template>
   </div>
 </template>
 
 <script>
-export default {
-  computed: {
-    user () {
-      return this.$store.state.user
-    }
-  },
-  methods: {
-    logout () {
-      this.$store.dispatch('logout')
-    }
-  }
-}
+export default {}
 </script>
 
 <style lang="scss" scoped>
