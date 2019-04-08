@@ -16,9 +16,15 @@ app.get('/', (req, res) => {
   })
 })
 
-app.get('/dashboard', (req, res) => {
-  res.json({
-    events: events
+app.get('/dashboard', verifyToken, (req, res) => {
+  jwt.verify(req.token, 'the_secret_key', err => {
+    if (err) {
+      res.sendStatus(401)
+    } else {
+      res.json({
+        events: events
+      })
+    }
   })
 })
 
