@@ -14,6 +14,11 @@
       <button type="submit" name="button">
         Login
       </button>
+
+      <p v-if="status === 400">
+        Invalid login. Please try again.
+      </p>
+
       <router-link to="/register">
         Don't have an account? Register.
       </router-link>
@@ -26,7 +31,8 @@ export default {
   data () {
     return {
       email: '',
-      password: ''
+      password: '',
+      status: null
     }
   },
   methods: {
@@ -38,6 +44,9 @@ export default {
         })
         .then(() => {
           this.$router.push({ name: 'dashboard' })
+        })
+        .catch(err => {
+          this.status = err.response.status
         })
     }
   }

@@ -38,10 +38,17 @@ app.post('/register', (req, res) => {
     }
 
     const data = JSON.stringify(user, null, 2)
-    var dbUserEmail = require('./db/user.json').email
+    var dbUser = require('./db/user.json')
+    var userEmail = dbUser.email
+    // var userPassword = dbUser.password
 
-    if (dbUserEmail === req.body.email) {
-      res.sendStatus(400)
+    // var errorsToSend = []
+
+    if (userEmail === req.body.email) {
+      // errorsToSend.push('An account with this email already exists.')
+      res
+        .sendStatus(400)
+        .json({ errors: ['An account with this email already exists.'] })
     } else {
       fs.writeFile('./db/user.json', data, err => {
         if (err) {

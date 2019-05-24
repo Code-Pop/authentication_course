@@ -19,6 +19,9 @@
       <button type="submit" name="button">
         Register
       </button>
+
+      <p>hey there</p>
+
       <router-link to="/login">
         Already have an account? Login.
       </router-link>
@@ -32,7 +35,8 @@ export default {
     return {
       name: '',
       email: '',
-      password: ''
+      password: '',
+      status: null
     }
   },
   methods: {
@@ -45,6 +49,10 @@ export default {
         })
         .then(() => {
           this.$router.push({ name: 'dashboard' })
+        })
+        .catch(err => {
+          console.log('status:', err.response)
+          // this.status = err.response
         })
     }
   }
