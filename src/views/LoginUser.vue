@@ -15,9 +15,7 @@
         Login
       </button>
 
-      <p v-if="status === 400">
-        Invalid login. Please try again.
-      </p>
+      <p>{{ error }}</p>
 
       <router-link to="/register">
         Don't have an account? Register.
@@ -32,7 +30,7 @@ export default {
     return {
       email: '',
       password: '',
-      status: null
+      error: null
     }
   },
   methods: {
@@ -46,7 +44,7 @@ export default {
           this.$router.push({ name: 'dashboard' })
         })
         .catch(err => {
-          this.status = err.response.status
+          this.error = err.response.data.error
         })
     }
   }
