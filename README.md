@@ -1,5 +1,9 @@
 # authentication_course
 
+## Enviorment
+
+Node 10.x
+
 ## Project setup
 ```
 npm install
