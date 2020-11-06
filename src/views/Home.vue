@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <h1>Welcome to the App!</h1>
-    <div v-if="!loggedIn">
+    <div v-if="notLoggedIn"> // here
       To use this app you'll need to
       <router-link to="/login">
         Login
@@ -18,7 +18,12 @@
 import { authComputed } from '../vuex/helpers.js'
 export default {
   computed: {
-    ...authComputed
+    ...authComputed,
+  },
+  methods: {
+      notLoggedIn() { // & here
+          return ! this.loggedIn
+      }
   }
 }
 </script>
