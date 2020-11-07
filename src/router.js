@@ -2,7 +2,8 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
 import Dashboard from './views/Dashboard.vue'
-import Authenticate from './views/Authenticate.vue'
+import RegisterUser from './views/RegisterUser.vue'
+import LoginUser from './views/LoginUser.vue'
 
 Vue.use(Router)
 
@@ -21,24 +22,16 @@ const router = new Router({
       component: Dashboard
     },
     {
-      path: '/authenticate',
-      name: 'authenticate',
-      component: Authenticate
+      path: '/register',
+      name: 'register',
+      component: RegisterUser
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: LoginUser
     }
   ]
-})
-
-router.beforeEach((to, from, next) => {
-  // redirect to login page if user is not logged in and trying to access a restricted page
-  const publicPages = ['/authenticate', '/']
-  const authRequired = !publicPages.includes(to.path)
-  const loggedIn = localStorage.getItem('user')
-
-  if (authRequired && !loggedIn) {
-    return next('/authenticate')
-  }
-
-  next()
 })
 
 export default router

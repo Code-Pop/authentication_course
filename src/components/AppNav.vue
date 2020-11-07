@@ -1,40 +1,22 @@
 <template>
   <div id="nav">
     <router-link to="/">
-Home
-</router-link>
-
-    <template v-if="user">
-      <router-link to="dashboard">
-Dashboard
-</router-link>
-
-      <span class="nav-welcome">Hello, {{ user.name }}.</span>
-
-      <button type="button" class="logoutButton" @click="logout">
-Log out
-</button>
-    </template>
-
-    <template v-else>
-      <router-link to="authenticate" class="button">
-Login
-</router-link>
-    </template>
+      Home
+    </router-link>
+    <router-link to="/dashboard">
+      Dashboard
+    </router-link>
+    <router-link v-if="!loggedIn" to="/login" class="button">
+      Login
+    </router-link>
   </div>
 </template>
 
 <script>
+import { authComputed } from '../vuex/helpers.js'
 export default {
   computed: {
-    user () {
-      return this.$store.state.user
-    }
-  },
-  methods: {
-    logout () {
-      this.$store.dispatch('logout')
-    }
+    ...authComputed
   }
 }
 </script>
