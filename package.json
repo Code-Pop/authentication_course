@@ -15,7 +15,7 @@
     "eslint-config-standard": "^12.0.0",
     "eslint-plugin-import": "^2.16.0",
     "express": "^4.16.4",
-    "jsonwebtoken": "^8.4.0",
+    "jsonwebtoken": "^9.0.0",
     "nodemon": "^1.18.10",
     "sqlite3": "^4.0.6",
     "vue": "^2.5.22",
